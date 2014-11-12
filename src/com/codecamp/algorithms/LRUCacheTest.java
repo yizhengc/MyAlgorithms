@@ -16,6 +16,8 @@ public class LRUCacheTest {
             cache.add(String.valueOf(i), i);
         }
 
+        cache.printContent();
+
         assert(cache.containsKey("12") == true);
         assert(cache.containsKey("0") == false);
     }

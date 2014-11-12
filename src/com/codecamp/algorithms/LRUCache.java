@@ -1,5 +1,6 @@
 package com.codecamp.algorithms;
 
+import javax.sound.midi.SysexMessage;
 import java.util.HashMap;
 
 /**
@@ -55,11 +56,11 @@ public class LRUCache {
             {
                 tail.Prev.Next = null;
                 index.remove(tail);
+                tail = tail.Prev;
                 cacheSize--;
             }
         }
-        else
-        {
+
             ListNode<Integer> target = new ListNode<Integer>(val);
             if (head == null)
             {
@@ -68,12 +69,13 @@ public class LRUCache {
             else
             {
                 target.Next = head;
+                head.Prev = target;
                 head = target;
             }
 
             index.put(key, head);
             cacheSize++;
-        }
+
     }
 
     public void clear()
@@ -86,5 +88,14 @@ public class LRUCache {
     public int getSize()
     {
         return cacheSize;
+    }
+
+    public void printContent()
+    {
+        for(ListNode<Integer> tmp = head; tmp != null; tmp = tmp.Next)
+        {
+            System.out.print(tmp.Value);
+            System.out.print(" ");
+        }
     }
 }
