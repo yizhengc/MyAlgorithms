@@ -20,7 +20,12 @@ public class LRUCache {
         index = new HashMap<String, ListNode<Integer>>(cacheLimit);;
     }
 
-    public int GetValue(String key) throws Exception
+    public boolean containsKey(String key)
+    {
+        return index != null && index.containsKey(key);
+    }
+
+    public int getValue(String key) throws Exception
     {
         if (index.containsKey(key))
         {
@@ -39,8 +44,11 @@ public class LRUCache {
             throw new Exception();
     }
 
-    public void Add(String key, int val)
+    public void add(String key, int val)
     {
+        if (index.containsKey(key))
+            return;
+
         if (cacheSize == cacheLimit) {
             /// Remove old cache
             if (tail != null)
@@ -66,5 +74,17 @@ public class LRUCache {
             index.put(key, head);
             cacheSize++;
         }
+    }
+
+    public void clear()
+    {
+        cacheSize = 0;
+        head = tail = null;
+        index.clear();
+    }
+
+    public int getSize()
+    {
+        return cacheSize;
     }
 }
